@@ -1,7 +1,7 @@
-using Microsoft.EntityFrameworkCore;
-using OrderService.BackgroundServices;
-using OrderService.Data;
-using OrderService.Services;
+﻿using Microsoft.EntityFrameworkCore;
+using PaymentsService.BackgroundServices;
+using PaymentsService.Data;
+using PaymentsService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,14 +10,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-    ?? "Host=localhost;Port=5432;Database=orders_db;Username=postgres;Password=postgres";
-builder.Services.AddDbContext<OrderDbContext>(options =>
+    ?? "Host=localhost;Port=5432;Database=payments_db;Username=postgres;Password=postgres";
+builder.Services.AddDbContext<PaymentsDbContext>(options =>
     options.UseNpgsql(connectionString));
 
-builder.Services.AddScoped<IOrderManagementService, OrderManagementService>();
-
+builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<IPaymentProcessingService, PaymentProcessingService>();
+builder.Services.AddHostedService<PaymentRequestConsumer>();
 builder.Services.AddHostedService<OutboxProcessor>();
-builder.Services.AddHostedService<PaymentResultConsumer>();
 
 var app = builder.Build();
 
@@ -26,8 +26,8 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     try
     {
-        var context = services.GetRequiredService<OrderDbContext>();
-        context.Database.EnsureCreated();
+        var context = services.GetRequiredService<PaymentsDbContext>();
+        context.Database.EnsureCreated();   
         Console.WriteLine("Database created successfully");
     }
     catch (Exception ex)
@@ -36,10 +36,9 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-
 using (var scope = app.Services.CreateScope())
 {
-    var db = scope.ServiceProvider.GetRequiredService<OrderDbContext>();
+    var db = scope.ServiceProvider.GetRequiredService<PaymentsDbContext>();
     db.Database.Migrate();
 }
 
@@ -51,5 +50,4 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthorization();
 app.MapControllers();
-
 app.Run();

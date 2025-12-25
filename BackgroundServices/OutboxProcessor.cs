@@ -5,20 +5,18 @@ using System.Threading;
 using System.Threading.Tasks;
 using Common.RabbitMQ;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using OrderService.Data;
+using PaymentsService.Data;
 using RabbitMQ.Client;
 
-namespace OrderService.BackgroundServices
+namespace PaymentsService.BackgroundServices
 {
     public class OutboxProcessor : BackgroundService
     {
         private readonly IServiceProvider _serviceProvider;
         private IConnection _connection;
         private RabbitMQ.Client.IModel _channel;
-
 
         public OutboxProcessor(IServiceProvider serviceProvider)
         {
@@ -40,7 +38,7 @@ namespace OrderService.BackgroundServices
             _channel = _connection.CreateModel();
 
             _channel.QueueDeclare(
-                queue: RabbitMQSettings.PaymentRequestQueue,
+                queue: RabbitMQSettings.PaymentResultQueue,
                 durable: true,
                 exclusive: false,
                 autoDelete: false,
@@ -56,7 +54,7 @@ namespace OrderService.BackgroundServices
                 {
                     using (var scope = _serviceProvider.CreateScope())
                     {
-                        var context = scope.ServiceProvider.GetRequiredService<OrderDbContext>();
+                        var context = scope.ServiceProvider.GetRequiredService<PaymentsDbContext>();
 
                         var unsent = await context.OutboxMessages
                             .Where(m => !m.Sent)
@@ -70,7 +68,7 @@ namespace OrderService.BackgroundServices
 
                             _channel.BasicPublish(
                                 exchange: "",
-                                routingKey: RabbitMQSettings.PaymentRequestQueue,
+                                routingKey: RabbitMQSettings.PaymentResultQueue,
                                 basicProperties: null,
                                 body: body
                             );
@@ -78,7 +76,7 @@ namespace OrderService.BackgroundServices
                             message.Sent = true;
                             message.SentAt = DateTime.UtcNow;
 
-                            Console.WriteLine($"Sent payment request from outbox: {message.Id}");
+                            Console.WriteLine($"Sent payment result from outbox: {message.Id}");
                         }
 
                         if (unsent.Any())
