@@ -1,0 +1,12 @@
+C:\Users\yaros\Desktop\ЕГЭ\КПО\ДЗ4\GozonShop\Common\bin\Debug\net8.0\Common.deps.json
+C:\Users\yaros\Desktop\ЕГЭ\КПО\ДЗ4\GozonShop\Common\bin\Debug\net8.0\Common.dll
+C:\Users\yaros\Desktop\ЕГЭ\КПО\ДЗ4\GozonShop\Common\bin\Debug\net8.0\Common.pdb
+C:\Users\yaros\Desktop\ЕГЭ\КПО\ДЗ4\GozonShop\Common\obj\Debug\net8.0\Common.csproj.AssemblyReference.cache
+C:\Users\yaros\Desktop\ЕГЭ\КПО\ДЗ4\GozonShop\Common\obj\Debug\net8.0\Common.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\yaros\Desktop\ЕГЭ\КПО\ДЗ4\GozonShop\Common\obj\Debug\net8.0\Common.AssemblyInfoInputs.cache
+C:\Users\yaros\Desktop\ЕГЭ\КПО\ДЗ4\GozonShop\Common\obj\Debug\net8.0\Common.AssemblyInfo.cs
+C:\Users\yaros\Desktop\ЕГЭ\КПО\ДЗ4\GozonShop\Common\obj\Debug\net8.0\Common.csproj.CoreCompileInputs.cache
+C:\Users\yaros\Desktop\ЕГЭ\КПО\ДЗ4\GozonShop\Common\obj\Debug\net8.0\Common.dll
+C:\Users\yaros\Desktop\ЕГЭ\КПО\ДЗ4\GozonShop\Common\obj\Debug\net8.0\refint\Common.dll
+C:\Users\yaros\Desktop\ЕГЭ\КПО\ДЗ4\GozonShop\Common\obj\Debug\net8.0\Common.pdb
+C:\Users\yaros\Desktop\ЕГЭ\КПО\ДЗ4\GozonShop\Common\obj\Debug\net8.0\ref\Common.dll

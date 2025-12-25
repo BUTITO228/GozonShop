@@ -1,0 +1,2 @@
+C:\Users\yaros\Desktop\ЕГЭ\КПО\ДЗ4\GozonShop\GozonShop\obj\Debug\GozonShop.csproj.AssemblyReference.cache
+C:\Users\yaros\Desktop\ЕГЭ\КПО\ДЗ4\GozonShop\GozonShop\obj\Debug\GozonShop.csproj.CoreCompileInputs.cache
